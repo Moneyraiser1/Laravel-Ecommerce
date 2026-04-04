@@ -30,7 +30,7 @@
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="{{ route('login'); }}" method="post" class="login">
+          <form action="{{ route('login') }}" method="post" class="login">
             @csrf
             <div class="field">
               <input type="text" name="email" placeholder="Email Address" required>
@@ -45,7 +45,7 @@
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
           </form>
-                  <form action="{{ route('register'); }}" method="POST" class="signup">
+                  <form action="{{ route('register') }}" method="POST" class="signup">
                     @csrf
             <div class="field">
               <input type="text" placeholder="Full Name" name="name" required>

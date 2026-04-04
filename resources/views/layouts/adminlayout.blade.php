@@ -177,17 +177,22 @@ body.dark-mode .text-dark {
 <script src="{{ asset('js/todolist.js') }}"></script>
 <script src="{{ asset('js/jquery.cookie.js') }}"></script>
 <script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Alertify session messages -->
+ @if(session('success') || session('error'))
 <script>
-alertify.set('notifier','position', 'top-right');
-@if(session('success')) 
-alertify.success("{{ session('success') }}"); 
+    alertify.set('notifier','position', 'top-right');
+
+    @if(session('success'))
+        alertify.success(@json(session('success')));
+    @endif
+
+    @if(session('error'))
+        alertify.error(@json(session('error')));
+    @endif
+</script> 
 @endif
-@if(session('error')) 
-alertify.error("{{ session('error') }}");
- @endif
-</script>
 
 @yield('script')
 </body>

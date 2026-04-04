@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-            Schema::table('products', function (Blueprint $table) {
-    $table->int('category_id'); // remove old column if you don’t need it
-});
-
-
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('phone')->after('email');
+        });
     }
 
     /**
@@ -24,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

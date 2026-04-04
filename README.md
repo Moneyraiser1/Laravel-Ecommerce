@@ -48,4 +48,5 @@ Payments are processed securely using Paystack.
 
 👨‍💻 Author
 
+Abdulsalam
 Your Name

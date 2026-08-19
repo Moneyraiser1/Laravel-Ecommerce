@@ -13,7 +13,7 @@ return new class extends Migration
     {
 
             Schema::table('products', function (Blueprint $table) {
-    $table->int('category_id'); // remove old column if you don’t need it
+    $table->integer('category_id'); // remove old column if you don’t need it
 });
 
 

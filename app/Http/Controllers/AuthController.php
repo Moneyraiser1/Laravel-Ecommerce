@@ -10,16 +10,15 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 class AuthController extends Controller
 {
    
-    public function register(Request $request)
-    {
+   public function register(Request $request)
+{
     $request->validate([
         'name'     => 'required|string|max:255',
-        'email'    => 'required|email|unique:users',
+        'email'    => 'required|email|unique:users,email',
         'phone'    => 'required|numeric',
         'password' => 'required|string|min:8|confirmed',
     ]);
 
-    // Create the user
     $user = User::create([
         'name'     => $request->name,
         'email'    => $request->email,
@@ -27,34 +26,43 @@ class AuthController extends Controller
         'password' => Hash::make($request->password),
     ]);
 
-    // Log in the user immediately
     Auth::login($user);
 
-    // Send verification link to user email
-    // $user->sendEmailVerificationNotification();
+    $request->session()->regenerate();
 
-    // // Redirect to verify-email page
-    // return redirect()->route('verification.notice')
-    //     ->with('success', 'Account created! Please check your email to verify your account.');
-    }
-     public function login(Request $request) {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+    return redirect()->route('home')
+        ->with('success', 'Account created successfully!');
+}
+   public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required', 'string'],
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-                if (Auth::user()->role === 'admin') {
+    if (Auth::attempt($credentials)) {
+
+        // Prevent session fixation
+        $request->session()->regenerate();
+
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
             return redirect()->route('admin.home');
-            } elseif (Auth::user()->role === 'user') {
-                return redirect()->route('user.home');
-            }
-            return redirect()->route('home')->with('success', 'Logged in successfully!');
         }
 
-        return back()->with('error', 'Invalid credentials. Please try again.');
+        if ($user->role === 'user') {
+            return redirect()->route('user.home');
+        }
+
+        return redirect()->route('home')
+            ->with('success', 'Logged in successfully!');
     }
+
+    return back()
+        ->withInput($request->only('email'))
+        ->with('error', 'Invalid credentials. Please try again.');
+}
     public function showUserProfile()
     {
         $users = User::where('role', 'user')->get();

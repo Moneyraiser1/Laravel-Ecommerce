@@ -14,7 +14,7 @@
         alertify.error("{{ session('error') }}");
     </script>
 @endif
-{{ route('login') }}
+
 
 <div class="wrapper">
   

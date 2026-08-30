@@ -83,16 +83,16 @@ public function logout(Request $request)
 }
 
 
-// public function verify(EmailVerificationRequest $request)
-// {
-//     if (Auth::user()->hasVerifiedEmail()) {
-//         return redirect()->route('auth')->with('message', 'Email already verified.');
-//     }
+public function verify(EmailVerificationRequest $request)
+{
+    if (Auth::user()->hasVerifiedEmail()) {
+        return redirect()->route('auth')->with('message', 'Email already verified.');
+    }
 
-//     $request->fulfill();
+    $request->fulfill();
 
-//     return redirect()->route('auth')->with('message', 'Email verified successfully! Please log in.');
-// }
+    return redirect()->route('auth')->with('message', 'Email verified successfully! Please log in.');
+}
 
 
 }

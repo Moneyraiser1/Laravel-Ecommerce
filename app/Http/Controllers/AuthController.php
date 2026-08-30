@@ -31,11 +31,11 @@ class AuthController extends Controller
     Auth::login($user);
 
     // Send verification link to user email
-    $user->sendEmailVerificationNotification();
+    // $user->sendEmailVerificationNotification();
 
-    // Redirect to verify-email page
-    return redirect()->route('verification.notice')
-        ->with('success', 'Account created! Please check your email to verify your account.');
+    // // Redirect to verify-email page
+    // return redirect()->route('verification.notice')
+    //     ->with('success', 'Account created! Please check your email to verify your account.');
     }
      public function login(Request $request) {
         $credentials = $request->validate([

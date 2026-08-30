@@ -21,8 +21,8 @@ use App\Http\Controllers\ReportController;
 // --------------------------------------------------
 // Default & Authentication Routes
 // --------------------------------------------------
-Route::redirect('/', 'user/home');
-Route::redirect('/login', 'auth');
+// Route::redirect('/', 'user/home');
+// Route::redirect('/login', 'auth');
 
 
 Route::get('/auth', fn() => view('auth.authentication'))->name('auth');
